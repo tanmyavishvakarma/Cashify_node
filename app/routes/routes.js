@@ -3,7 +3,7 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // Create a new Tutorial
+    // Create a new devicesial
     router.post("/", devices.create);
   
     // Retrieve all devices
@@ -12,14 +12,14 @@ module.exports = app => {
     // Retrieve all published devices
 
   
-    // Retrieve a single Tutorial with id
-    router.get("/:id", devices.findOne);
+    // Retrieve a single deviceswith serialno
+    router.get("/:serialno", devices.findOne);
   
-    // Update a Tutorial with id
-    router.put("/:id", devices.update);
+    // Update a deviceswith serialno
+    router.put("/:serialno", devices.update);
   
-    // Delete a Tutorial with id
-    router.delete("/:id", devices.delete);
+    // Delete a deviceswith serialno
+    router.delete("/:serialno", devices.delete);
   
     // Delete all devices
     router.delete("/", devices.deleteAll);

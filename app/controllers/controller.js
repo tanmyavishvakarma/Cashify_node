@@ -1,6 +1,7 @@
 const db = require("../models");
 const Device = db.devices;
 const Op = db.Sequelize.Op;
+bodyParser = require('body-parser').json();
 
 // Create and Save a new Devices
 exports.create = (req, res) => {
