@@ -1,35 +1,32 @@
-  const express = require("express");
-  const bodyParser = require("body-parser");
-  const cors = require("cors");
+const express =require('express');
+const cors = require('cors');
+const mysql=require('mysql');
+const bodyParser = require('body-parser');
 
-  const app = express();
 
-  var corsOptions = {
-    origin: "http://localhost:8081"
-  };
-
-  app.use(cors(corsOptions));
-
-  // parse requests of content-type - application/json
-  app.use(bodyParser.json());
-
-  // parse requests of content-type - application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  const db = require("./app/models");
+const app=express()
+app.use(express.json())
+app.use(cors())
+app.use(bodyParser({extended:true}));
+const connection=mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'',    
+    database:'testdb'
+});
+app.post('/addproject',function(req,res){
+    const serialno=req.body.serialno;
+    const brand=req.body.brand;
+    const modelname=req.body.modelname;
  
-db.sequelize.sync(
-);
 
-  // simple route
-  app.get("/", (req, res) => {
-    res.json({ message: "Welcome" });
-  });
+  const sqlinsert="INSERT INTO devices (serialno,brand,modelname) VALUES (?,?,?)"
+  connection.query(sqlinsert,[serialno,brand,modelname],(err,result)=>{
 
-  require("./app/routes/routes")(app);  
+    });
+    res.send('add');
+});
 
-  // set port, listen for requests
-  const PORT = process.env.PORT || 8080;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-  });
+app.listen(3000,()=>{
+    console.log("running");
+});
